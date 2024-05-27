@@ -40,7 +40,7 @@ else
     -v "/$(pwd)/scripts/:/catkin_ws/src/Azure_Kinect_ROS_Driver/scripts/scripts" \
     -v "/$(pwd)/rviz/:/catkin_ws/src/Azure_Kinect_ROS_Driver/rviz" \
     -v "/$(pwd)/pose_data/:/pose_data" \
-    -v /home/lbyang/workspace/flingbot/real_world/PyKinect:/PyKinect \
+    -v "/$(pwd)/PyKinect/:/PyKinect" \
     --net host \
     elcarimqaq/kinect_ros:v1
 fi
