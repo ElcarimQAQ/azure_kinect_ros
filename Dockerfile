@@ -1,4 +1,3 @@
- 
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 # FROM nvidia/cuda:11.5.0-cudnn8-runtime-ubuntu18.04
 
@@ -28,10 +27,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nautilus\
     net-tools \
     gedit \
-    curl
+    curl \
+    vim
 
 RUN python -m pip install --upgrade pip
 RUN apt-get update && apt-get install  -y python-ruamel.yaml
+
+RUN apt-get update
+RUN apt install python3-pip
+RUN python3 -m pip install --upgrade pip
+RUN pip install open3d aiohttp imageio pyk4a 
 
 #######################################################################
 ##                       install nvidia docker                       ##
@@ -141,9 +146,8 @@ RUN echo 'libk4a1.3 libk4a1.3/accepted-eula-hash string 0f5d5c5de396e4fee4c0753a
 RUN echo 'libk4a1.4 libk4a1.4/accepted-eula-hash string 0f5d5c5de396e4fee4c0753a21fee0c1ed726cf0316204edda484f08cb266d76' | sudo debconf-set-selections
 RUN echo 'libk4abt1.0	libk4abt1.0/accepted-eula-hash	string	03a13b63730639eeb6626d24fd45cf25131ee8e8e0df3f1b63f552269b176e38' | debconf-set-selections
 RUN echo 'libk4abt1.1 libk4abt1.1/accepted-eula-hash string 03a13b63730639eeb6626d24fd45cf25131ee8e8e0df3f1b63f552269b176e38' | debconf-set-selections
-RUN apt-get install -y \
-    libk4a1.4 \
-    libk4a1.4-dev
+RUN apt install -y  k4a-tools
+RUN apt-get install -y libk4a1.4-dev
 RUN apt-get install -y \
     libk4abt1.1 \
     libk4abt1.1-dev
@@ -195,15 +199,14 @@ RUN mkdir -p /catkin_ws/src && \
 
 RUN cd /catkin_ws/src && \
     git clone https://github.com/microsoft/Azure_Kinect_ROS_Driver.git -b melodic && \
-    cd Azure_Kinect_ROS_Driver && \
-    git checkout cda16bc8733a3851c2c723ea433d32aa4fa5468b
+    cd Azure_Kinect_ROS_Driver 
 
 RUN cd /catkin_ws && \
    /bin/bash -c 'source /opt/ros/melodic/setup.bash;catkin_make --force-cmake'
 RUN echo "source /catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 #######################################################################
-##                           ros settings                            ##
+##                            ros settings                            ##
 #######################################################################
 
 RUN echo "export PS1='\[\e[1;31;40m\]AzureKinect\[\e[0m\] \u:\w\$ '">> ~/.bashrc

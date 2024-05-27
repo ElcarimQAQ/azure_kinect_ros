@@ -1,1 +1,1 @@
-docker build --tag chakio/azure_kinect_ros:latest  .
+docker build --network host --tag elcarimqaq/kinect_ros:latest  .

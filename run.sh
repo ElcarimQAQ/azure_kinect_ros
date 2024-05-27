@@ -20,7 +20,7 @@ if [ $? -ne 0 ]; then
     -v "/$(pwd)/rviz/:/catkin_ws/src/Azure_Kinect_ROS_Driver/rviz" \
     -v "/$(pwd)/pose_data/:/pose_data" \
     --net host \
-    chakio/azure_kinect_ros:latest
+    elcarimqaq/kinect_ros:latest
 else
    echo "=========================" 
    echo "=nvidia docker installed="
@@ -40,6 +40,7 @@ else
     -v "/$(pwd)/scripts/:/catkin_ws/src/Azure_Kinect_ROS_Driver/scripts/scripts" \
     -v "/$(pwd)/rviz/:/catkin_ws/src/Azure_Kinect_ROS_Driver/rviz" \
     -v "/$(pwd)/pose_data/:/pose_data" \
+    -v /home/lbyang/workspace/flingbot/real_world/PyKinect:/PyKinect \
     --net host \
-    chakio/azure_kinect_ros:latest
+    elcarimqaq/kinect_ros:v1
 fi
